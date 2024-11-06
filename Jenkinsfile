@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        SONAR_TOKEN = credentials('sonar_token')  
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -22,7 +26,7 @@ pipeline {
 
 	stage('SonarQube Analysis') {
             steps {
-                    sh 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
             }
         }
 
