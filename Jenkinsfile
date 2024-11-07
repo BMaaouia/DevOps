@@ -12,9 +12,9 @@ pipeline {
     }
 
     stages {
-        stage('Hello') {
+        stage('Hellooooo') {
             steps {
-                echo 'Hello World'
+                echo 'Hellooo World'
             }
         }
         stage('Checkout GIT') {
