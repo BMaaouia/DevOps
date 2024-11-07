@@ -37,11 +37,9 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                dir('5DS6-G1-Kaddem-main') {
                     sh 'chmod +x mvnw'
                     sh 'chmod +x mvnw.cmd'
                     sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
-                }
             }
         }
     }
