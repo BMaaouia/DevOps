@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
 
     environment {
         SONAR_TOKEN = credentials('sonar_token')
@@ -13,12 +13,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git 'https://github.com/BMaaouia/DevOps.git'
-            }
-        }
-
-        stage('Clean') {
-            steps {
-                sh 'mvn clean'
             }
         }
 
