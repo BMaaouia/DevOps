@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { dockerfile true }
 
     environment {
         SONAR_TOKEN = credentials('sonar_token')
