@@ -22,7 +22,6 @@ pipeline {
             }
         }
 
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -52,7 +51,13 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    sh 'docker-compose up -d --build'
+                    withEnv([
+                        "DOCKER_IMAGE=${DOCKER_IMAGE}",
+                        "DOCKER_TAG=${DOCKER_TAG}",
+                        "DOCKER_REGISTRY=${DOCKER_REGISTRY}"
+                    ]) {
+                        sh 'docker-compose up -d --build'
+                    }
                 }
             }
         }
