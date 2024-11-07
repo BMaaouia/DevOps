@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     environment {
-        SONAR_TOKEN = credentials('sonar_token')
+        // Set environment variables for SonarQube
+        SONAR_HOST_URL = 'http://192.168.33.10:9000'
+        SONAR_TOKEN = 'dc08becfa9075f5ff7b6caf4971beb9b179182c8' // Replace with your token
         DOCKER_IMAGE = 'brmaaouia/backend-image'
         DOCKER_TAG = 'latest'
         DOCKER_REGISTRY = 'docker.io'
@@ -10,12 +12,43 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Hello') {
             steps {
-                git 'https://github.com/BMaaouia/DevOps.git'
+                echo 'Hello World'
             }
         }
-
+        stage('Checkout GIT') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/aziz-allani/DEVOPS.git',
+                    credentialsId: '1119d8c0-9c1d-4dfe-b674-e3032b3d21ff'
+            }
+        }
+        stage('Test Maven') {
+            steps {
+                sh 'mvn -version'
+            }
+        }
+        stage('MVN clean') {
+            steps {
+                sh 'cd 5DS6-G1-Kaddem-main && mvn clean'
+            }
+        }
+        stage('MVN compile') {
+            steps {
+                sh 'cd 5DS6-G1-Kaddem-main && mvn compile'
+            }
+        }
+        stage('SonarQube analysis') {
+            steps {
+                echo 'Running SonarQube analysis...'
+                dir('5DS6-G1-Kaddem-main') {
+                    sh 'chmod +x mvnw'
+                    sh 'chmod +x mvnw.cmd'
+                    sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -71,4 +104,5 @@ pipeline {
             echo 'Build failed!'
         }
     }
+
 }
