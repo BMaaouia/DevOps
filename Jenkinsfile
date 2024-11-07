@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Hellooo World'
             }
-        }
+        
         stage('Checkout GIT') {
             steps {
                 git branch: 'AzizAllani',
