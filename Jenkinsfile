@@ -12,11 +12,11 @@ pipeline {
             steps {
                 echo 'Hellooo World'
             }
-        
+        }
         stage('Checkout GIT') {
             steps {
                 git branch: 'AzizAllani',
-                    url: 'https://github.com/BMaaouia/DevOps.git',
+                url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
         stage('Test Maven') {
@@ -44,6 +44,5 @@ pipeline {
                 }
             }
         }
-
-
+    }
 }
