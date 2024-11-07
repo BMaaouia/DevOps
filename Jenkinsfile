@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout GIT') {
             steps {
-                git branch: 'main',
+                git branch: 'AzizAllani',
                     url: 'https://github.com/BMaaouia/DevOps.git',
                     credentialsId: '1119d8c0-9c1d-4dfe-b674-e3032b3d21ff'
             }
@@ -31,12 +31,12 @@ pipeline {
         }
         stage('MVN clean') {
             steps {
-                sh 'cd 5DS6-G1-Kaddem-main && mvn clean'
+                sh 'mvn clean'
             }
         }
         stage('MVN compile') {
             steps {
-                sh 'cd 5DS6-G1-Kaddem-main && mvn compile'
+                sh 'mvn compile'
             }
         }
         stage('SonarQube analysis') {
