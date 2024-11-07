@@ -21,7 +21,6 @@ pipeline {
             steps {
                 git branch: 'AzizAllani',
                     url: 'https://github.com/BMaaouia/DevOps.git',
-                    credentialsId: '1119d8c0-9c1d-4dfe-b674-e3032b3d21ff'
             }
         }
         stage('Test Maven') {
