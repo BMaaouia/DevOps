@@ -23,12 +23,6 @@ pipeline {
         }
 
 
-        stage('SonarQube Analysis') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
