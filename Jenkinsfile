@@ -22,11 +22,6 @@ pipeline {
             }
         }
 
-        stage('Install') {
-            steps {
-                sh 'mvn install'
-            }
-        }
 
         stage('SonarQube Analysis') {
             steps {
