@@ -20,7 +20,7 @@ pipeline {
         stage('Checkout GIT') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/aziz-allani/DEVOPS.git',
+                    url: 'https://github.com/BMaaouia/DevOps.git',
                     credentialsId: '1119d8c0-9c1d-4dfe-b674-e3032b3d21ff'
             }
         }
