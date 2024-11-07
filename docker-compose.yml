@@ -1,15 +1,27 @@
 version: '3.8'
+
 services:
-  app:
-    image: "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"  # Reference the Docker image and tag
+  spring:
+    image: brmaaouia/backend-image:latest
     ports:
-      - "8089:8089"  # Map container port 8089 to host port 8089
+      - "8089:8089"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod  # Example environment variable
-    networks:
-      - app-network
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/kaddem
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    depends_on:
+      - mysql
 
-networks:
-  app-network:
-    driver: bridge
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
+volumes:
+  mysql_data:
