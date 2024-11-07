@@ -89,6 +89,20 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <!-- Dockerfile Plugin (for Docker integration) -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <configuration>
+                    <imageName>brmaaouia/kaddem</imageName>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.artifactId}-${project.version}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
