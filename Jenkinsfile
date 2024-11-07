@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        SONAR_TOKEN = credentials('sonar_token')  
-	DOCKER_IMAGE = 'brmaaouia/backend-image'  
-        DOCKER_TAG = 'latest'  
-        DOCKER_REGISTRY = 'docker.io'  
+        SONAR_TOKEN = credentials('sonar_token')
+        DOCKER_IMAGE = 'brmaaouia/backend-image'
+        DOCKER_TAG = 'latest'
+        DOCKER_REGISTRY = 'docker.io'
         DOCKER_CREDENTIALS = 'dockerhub-creds'
     }
 
@@ -22,30 +22,21 @@ pipeline {
             }
         }
 
-	stage('Install') {
+        stage('Install') {
             steps {
                 sh 'mvn install'
             }
         }
 
-	stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
-                    sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
-            }
-        }
-
-
-        stage('Checkout') {
-            steps {
-                // Checkout the code from the repository
-                checkout scm
+                sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image from Dockerfile
                     sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .'
                 }
             }
@@ -55,7 +46,6 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-
                         sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                     }
                 }
@@ -65,7 +55,6 @@ pipeline {
         stage('Push Docker Image to DockerHub') {
             steps {
                 script {
-                    // Push the built image to DockerHub
                     sh 'docker push ${DOCKER_IMAGE}:${DOCKER_TAG}'
                 }
             }
@@ -74,22 +63,16 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    // Deploy using Docker Compose (if applicable)
                     sh 'docker-compose up -d --build'
                 }
             }
         }
-    }
 
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-
-
-
-    
     }
 
     post {
