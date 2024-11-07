@@ -97,7 +97,7 @@
                 <version>1.1.0</version>
                 <configuration>
                     <imageName>brmaaouia/kaddem</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
                     <buildArgs>
                         <JAR_FILE>target/${project.artifactId}-${project.version}.jar</JAR_FILE>
                     </buildArgs>
