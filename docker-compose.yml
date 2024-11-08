@@ -27,9 +27,9 @@ services:
       ports:
         - "9000:9000"
       volumes:
-        - 'SonarQube_data:/opt/sonarqube/data:tmpfs'
-        - 'SonarQube_extensions:/opt/sonarqube/extensions:tmpfs'
-        - 'SonarQube_logs:/opt/sonarqube/logs:tmpfs'
+        - 'SonarQube_data:/opt/sonarqube/data'
+        - 'SonarQube_extensions:/opt/sonarqube/extensions'
+        - 'SonarQube_logs:/opt/sonarqube/logs'
   nexus:
     image: sonatype/nexus3
     ports:
