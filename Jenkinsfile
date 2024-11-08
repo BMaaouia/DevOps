@@ -20,14 +20,9 @@ pipeline {
             }
         }
 
-        stage('Build using Dockerfile') { // Specify Dockerfile in this stage
-            agent {
-                dockerfile {
-                    filename 'Dockerfile' // Specify the Dockerfile
-                }
-            }
+	stage('SonarQube') {
             steps {
-                echo 'Building with Dockerfile'
+                sh 'mvn sonar:sonar'
             }
         }
 
