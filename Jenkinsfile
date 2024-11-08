@@ -22,6 +22,7 @@ pipeline {
                     args '-v /var/run/docker.sock:/var/run/docker.sock' // Pass any required Docker arguments
                 }
            }
+	}
         stage('Checkout') {
             steps {
                 git branch:'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
