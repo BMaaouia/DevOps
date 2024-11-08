@@ -2,6 +2,7 @@ pipeline {
     agent any // Corrected the syntax for specifying any agent
 
     environment {
+	SONAR_HOST_URL = 'http://192.168.33.10:9000'
         SONAR_TOKEN = credentials('sonar_token')
         DOCKER_IMAGE = 'brmaaouia/backend-image'
         DOCKER_TAG = 'latest'
@@ -20,9 +21,15 @@ pipeline {
             }
         }
 
+	stage('Clean') {
+            steps {
+                sh 'mvn clean'
+            }
+        }
+
 	stage('SonarQube') {
             steps {
-                sh 'mvn sonar:sonar'
+                sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
             }
         }
 
