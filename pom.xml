@@ -65,11 +65,11 @@
 
     <distributionManagement>
         <repository>
-            <id>DeploymentRepo</id>
-            <url>http://192.168.33.10:8080/repository/maven-releases/</url>
+            <id>deploymentRepo</id>
+            <url>http://192.168.33.10:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
-    
+
     <build>
         <plugins>
             <!-- Spring Boot Maven Plugin for creating an executable JAR -->
