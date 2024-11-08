@@ -13,7 +13,7 @@
     
     <groupId>tn.esprit.spring</groupId>
     <artifactId>kaddem</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>kaddem</name>
     <description>kaddem</description>
     
@@ -65,10 +65,12 @@
 
     <distributionManagement>
         <repository>
-            <id>DeploymentRepo</id>
-            <url>http://192.168.33.10:8081/repository/maven-releases/</url>
+            <id>deploymentRepo</id> <!-- Make sure this matches the ID in settings.xml -->
+            <name>Release Repository</name>
+            <url>http://192.168.33.10:8081/repository/maven-snapshots/</url>
         </repository>
     </distributionManagement>
+
 
     <build>
         <plugins>
