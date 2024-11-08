@@ -42,5 +42,10 @@ pipeline {
                     sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
             }
         }
+        stage('NEXUS') {
+                    steps {
+                        sh 'mvn deploy'
+                    }
+                }
     }
 }
