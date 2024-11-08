@@ -36,12 +36,6 @@ services:
       - "8081:8081"
     volumes:
       - 'nexus-data:/nexus-data'
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-        reservations:
-          cpus: "2.0"
 volumes:
   mysql_data:
   SonarQube_data:
