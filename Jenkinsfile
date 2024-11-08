@@ -12,10 +12,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/BMaaouia/DevOps.git'
+                git branch:'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
-
+        
         stage('Build Docker Image') {
             steps {
                 script {
