@@ -21,15 +21,16 @@ pipeline {
             }
         }
 
-	stage('Clean') {
-            steps {
-                sh 'mvn clean'
+        stage('Build using Dockerfile') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                }
             }
-        }
-
-        stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                script {
+                    sh 'mvn clean compile' // Command to build the application
+                }
             }
         }
         stage('SonarQube') {

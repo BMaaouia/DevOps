@@ -64,12 +64,12 @@
     </dependencies>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>deploymentRepo</id> <!-- Make sure this matches the ID in settings.xml -->
-            <name>Release Repository</name>
+        <repository>
+            <id>deploymentRepo</id>
             <url>http://192.168.33.10:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
+        </repository>
     </distributionManagement>
+
 
 
     <build>
