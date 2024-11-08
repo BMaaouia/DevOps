@@ -18,7 +18,7 @@ pipeline {
 
  	stage('NEXUS') {
                     steps {
-                        sh 'mvn deploy'
+                        sh '${MAVEN_HOME}/bin/mvn deploy'
                     }
                 }
 
