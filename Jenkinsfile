@@ -24,7 +24,6 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'Dockerfile' // Specify the Dockerfile
-                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker arguments if needed
                 }
             }
             steps {
