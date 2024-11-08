@@ -1,5 +1,5 @@
 pipeline {
-    any agent
+    agent any // Corrected the syntax for specifying any agent
 
     environment {
         SONAR_TOKEN = credentials('sonar_token')
@@ -10,35 +10,38 @@ pipeline {
     }
     
     tools { 
-      maven 'Maven 3.6.3' 
+        maven 'Maven 3.6.3' 
     }
 
     stages {
-
-	stage('Build using Dockerfile') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile' // Specify Dockerfile
-                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Pass any required Docker arguments
-                }
-           }
-	}
-        stage('Checkout') {
+        stage('Checkout') { // Move checkout stage first
             steps {
-                git branch:'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
+                git branch: 'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
 
- 	stage('NEXUS') {
+        stage('Build using Dockerfile') { // Specify Dockerfile in this stage
+            agent {
+                dockerfile {
+                    filename 'Dockerfile' // Specify the Dockerfile
+                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker arguments if needed
+                }
+            }
+            steps {
+                echo 'Building with Dockerfile'
+            }
+        }
+
+        stage('Nexus Clean') {
             steps {
                 sh 'mvn clean'
-                    }
-                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .'
+                    sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .' // Build Docker image
                 }
             }
         }
@@ -68,8 +71,7 @@ pipeline {
                         "DOCKER_IMAGE=${DOCKER_IMAGE}",
                         "DOCKER_TAG=${DOCKER_TAG}"
                     ]) {
-                        // Use the docker-compose file in the workspace
-                        sh 'docker-compose -f ./docker-compose.yml up -d'
+                        sh 'docker-compose -f ./docker-compose.yml up -d' // Deploy using Docker Compose
                     }
                 }
             }
@@ -77,7 +79,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh 'mvn test' // Run tests
             }
         }
     }
