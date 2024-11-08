@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=http://192.168.33.10:9000'
+                        sh 'mvn sonar:sonar'
                     }
                 }
             }
