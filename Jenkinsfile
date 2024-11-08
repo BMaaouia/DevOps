@@ -85,7 +85,7 @@ pipeline {
                                 "DOCKER_TAG=${DOCKER_TAG}",
                                 "DOCKER_REGISTRY=${DOCKER_REGISTRY}"
                             ]) {
-                                sh 'docker-compose up -d --build'
+                                sh 'docker-compose -f  /SonarAndNexus/docker-compose.yml up -d --build'
                             }
                         }
                     }
