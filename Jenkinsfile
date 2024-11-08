@@ -43,7 +43,7 @@ pipeline {
                 echo 'Running SonarQube analysis...'
                     sh 'chmod +x mvnw'
                     sh 'chmod +x mvnw.cmd'
-                    sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
+                    sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
             }
         }
         stage('NEXUS') {
