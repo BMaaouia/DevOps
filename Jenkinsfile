@@ -21,28 +21,7 @@ pipeline {
             }
         }
 
-        stage('Build using Dockerfile') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                }
-            }
-            steps {
-                script {
-                    sh 'mvn clean compile' // Command to build the application
-                }
-            }
-        }
-        stage('SonarQube') {
-            environment {
-                SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
-            }
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.33.10:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.java.binaries=target/classes"
-                }
-            }
-        }
+      
         stage('Nexus Clean') {
             steps {
                 sh 'mvn deploy'
