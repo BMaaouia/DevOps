@@ -8,6 +8,11 @@ pipeline {
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_CREDENTIALS = 'dockerhub-creds'
     }
+    
+    tools { 
+      maven 'MAVEN_HOME' 
+      jdk 'JAVA_HOME' 
+    }
 
     stages {
         stage('Checkout') {
