@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
 
     environment {
         SONAR_TOKEN = credentials('sonar_token')
@@ -21,8 +21,8 @@ pipeline {
         }
 
  	stage('NEXUS') {
-                    steps {
-                        sh 'mvn deploy'
+            steps {
+                sh 'mvn deploy'
                     }
                 }
 
