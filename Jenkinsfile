@@ -1,5 +1,5 @@
 pipeline {
-    agent { dockerfile true }
+    any agent
 
     environment {
         SONAR_TOKEN = credentials('sonar_token')
@@ -14,6 +14,14 @@ pipeline {
     }
 
     stages {
+
+	stage('Build using Dockerfile') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile' // Specify Dockerfile
+                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Pass any required Docker arguments
+                }
+           }
         stage('Checkout') {
             steps {
                 git branch:'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
