@@ -15,7 +15,23 @@ pipeline {
                 git branch:'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
-        
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=http://192.168.33.10:9000'
+                    }
+                }
+            }
+        }
+
+ 	stage('NEXUS') {
+                    steps {
+                        sh 'mvn deploy'
+                    }
+                }
+
         stage('Build Docker Image') {
             steps {
                 script {
