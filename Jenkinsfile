@@ -16,16 +16,6 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
-
  	stage('NEXUS') {
                     steps {
                         sh 'mvn deploy'
