@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin ${DOCKER_REGISTRY}'
                     }
                 }
             }
@@ -47,10 +47,10 @@ pipeline {
                 script {
                     withEnv([
                         "DOCKER_IMAGE=${DOCKER_IMAGE}",
-                        "DOCKER_TAG=${DOCKER_TAG}",
-                        "DOCKER_REGISTRY=${DOCKER_REGISTRY}"
+                        "DOCKER_TAG=${DOCKER_TAG}"
                     ]) {
-                        sh 'docker-compose up -d --build'
+                        // Use the docker-compose file in the workspace
+                        sh 'docker-compose -f ./docker-compose.yml up -d'
                     }
                 }
             }
