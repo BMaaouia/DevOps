@@ -21,18 +21,6 @@ pipeline {
             }
         }
 
-        stage('Build using Dockerfile') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                }
-            }
-            steps {
-                script {
-                    sh 'mvn clean compile' // Command to build the application
-                }
-            }
-        }
         stage('SonarQube') {
             environment {
                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
@@ -43,13 +31,14 @@ pipeline {
                 }
             }
         }
-        stage('Nexus Clean') {
-            steps {
-                sh 'mvn deploy'
-            }
-        }
+       
 
         stage('Build Docker Image') {
+	    agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                }
+            }
             steps {
                 script {
                     sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .' // Build Docker image
