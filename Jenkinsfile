@@ -20,6 +20,12 @@ pipeline {
                 git branch: 'Maaouia', url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
+        
+        stage('NEXUS') {
+                    steps {
+                        sh 'mvn deploy'
+                    }
+                }
 
         stage('SonarQube') {
             environment {
