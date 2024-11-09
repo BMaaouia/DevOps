@@ -34,11 +34,7 @@ pipeline {
        
 
         stage('Build Docker Image') {
-	    agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                }
-            }
+	    
             steps {
                 script {
                     sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .' // Build Docker image
