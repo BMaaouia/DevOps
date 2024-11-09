@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set environment variables for SonarQube
         SONAR_HOST_URL = 'http://192.168.33.10:9000'
-        SONAR_TOKEN = '6ee4a6605227b4818c854a2ca9512451d15d697e' // Replace with your token
+        SONAR_TOKEN = '37cc452ae04934e1cc412790f56688fd43e2f6ff' // Replace with your token
         DOCKER_IMAGE = 'azizallani/backend-image'
         DOCKER_TAG = 'latest'
         DOCKER_REGISTRY = 'docker.io'
