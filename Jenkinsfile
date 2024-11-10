@@ -21,11 +21,20 @@ pipeline {
             }
         }
         
-        stage('NEXUS') {
-                    steps {
-                        sh 'mvn deploy'
-                    }
+        stage('Publish to Nexus') {
+            steps {
+                script {
+                    nexusArtifactUploader artifacts: [[artifactId: 'kaddem', classifier: '', file: 'target/kaddem-0.0.1-SNAPSHOT.jar', type: 'jar']],
+                                       credentialsId: 'nexus-credentials-id',
+                                       groupId: 'tn.esprit.spring',
+                                       nexusUrl: 'http://192.168.33.10:8081',
+                                       nexusVersion: 'nexus3',
+                                       protocol: 'http',
+                                       repository: 'maven-snapshots',
+                                       version: '0.1.0'
                 }
+            }
+        }
 
         stage('SonarQube') {
             environment {
