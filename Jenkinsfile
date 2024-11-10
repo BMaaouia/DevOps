@@ -37,7 +37,7 @@ pipeline {
                                            nexusVersion: 'nexus3',
                                            protocol: 'http',
                                            repository: 'maven-snapshots',
-                                           version: '0.0.1'
+                                           version: '0.0.1-SNAPSHOT'
                 }
             }
         }
