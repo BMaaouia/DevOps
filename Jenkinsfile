@@ -51,6 +51,12 @@ pipeline {
                         echo 'Hellooo World'
                     }
         }
+        stage('Package Artifact ') {
+                   steps {
+                            sh "mvn package -DskipTests"
+                        }
+                   }
+                }
         stage('NEXUS') {
                     steps {
                         sh 'mvn deploy -DskipTests'
@@ -85,12 +91,9 @@ pipeline {
                 stage('Deploy Application') {
                     steps {
                         script {
-                            withEnv([
-                                "DOCKER_IMAGE=${DOCKER_IMAGE}",
-                                "DOCKER_TAG=${DOCKER_TAG}",
-                                "DOCKER_REGISTRY=${DOCKER_REGISTRY}"
-                            ]) {
-                                sh 'docker-compose up -d --build'
+                            withEnv {
+                                sh 'docker compose pull'
+                                sh 'docker compose up -d'
                             }
                         }
                     }
