@@ -33,7 +33,7 @@ pipeline {
                     nexusArtifactUploader artifacts: [[artifactId: 'kaddem', classifier: '', file: 'target/kaddem-0.0.1-SNAPSHOT.jar', type: 'jar']],
                                            credentialsId: 'nexus-credentials-id',
                                            groupId: 'tn.esprit.spring',
-                                           nexusUrl: 'http://192.168.33.10:8081',
+                                           nexusUrl: '192.168.33.10:8081',
                                            nexusVersion: 'nexus3',
                                            protocol: 'http',
                                            repository: 'maven-snapshots',
