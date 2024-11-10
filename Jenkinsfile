@@ -12,108 +12,112 @@ pipeline {
     }
 
     stages {
-        stage('Hellooooo') {
+        stage('Hello') {
             steps {
-                echo 'Hellooo World'
+                echo 'Hello World'
             }
         }
+
         stage('Checkout GIT') {
             steps {
                 git branch: 'AzizAllani',
-                url: 'https://github.com/BMaaouia/DevOps.git'
+                    url: 'https://github.com/BMaaouia/DevOps.git'
             }
         }
+
         stage('Test Maven') {
             steps {
                 sh 'mvn -version'
             }
         }
-        stage('MVN clean') {
+
+        stage('MVN Clean') {
             steps {
                 sh 'mvn clean'
             }
         }
-        stage('MVN compile') {
+
+        stage('MVN Compile') {
             steps {
                 sh 'mvn compile'
             }
         }
-        stage('SonarQube analysis') {
+
+        stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                    sh 'chmod +x mvnw'
-                    sh 'chmod +x mvnw.cmd'
-                    sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
+                sh 'chmod +x mvnw'
+                sh 'chmod +x mvnw.cmd'
+                sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
             }
         }
-        stage('test Helloo') {
-                    steps {
-                        echo 'Hellooo World'
-                    }
+
+        stage('Test Hello') {
+            steps {
+                echo 'Hello World'
+            }
         }
-        stage('Package Artifact ') {
-                   steps {
-                            sh "mvn package -DskipTests"
-                        }
-                   }
-                }
-        stage('NEXUS') {
-                    steps {
-                        sh 'mvn deploy -DskipTests'
-                    }
-                }
+
+        stage('Package Artifact') {
+            steps {
+                sh "mvn package -DskipTests"
+            }
+        }
+
+        stage('NEXUS Deploy') {
+            steps {
+                sh 'mvn deploy -DskipTests'
+            }
+        }
+
         stage('Build Docker Image') {
-                    steps {
-                        script {
-                            sh 'docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .'
-                        }
-                    }
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
+            }
+        }
 
-                stage('Login to DockerHub') {
-                    steps {
-                        script {
-                            withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                                sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                            }
-                        }
-                    }
-                }
-
-                stage('Push Docker Image to DockerHub') {
-                    steps {
-                        script {
-                            sh 'docker push ${DOCKER_IMAGE}:${DOCKER_TAG}'
-                        }
-                    }
-                }
-
-                stage('Deploy Application') {
-                    steps {
-                        script {
-                            withEnv {
-                                sh 'docker compose pull'
-                                sh 'docker compose up -d'
-                            }
-                        }
-                    }
-                }
-
-                stage('Test') {
-                    steps {
-                        sh 'mvn test'
+        stage('Login to DockerHub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                     }
                 }
             }
+        }
 
-            post {
-                success {
-                    echo 'Build finished successfully!'
-                }
-                failure {
-                    echo 'Build failed!'
+        stage('Push Docker Image to DockerHub') {
+            steps {
+                script {
+                    sh 'docker push ${DOCKER_IMAGE}:${DOCKER_TAG}'
                 }
             }
+        }
 
+        stage('Deploy Application') {
+            steps {
+                script {
+                    sh 'docker compose pull'
+                    sh 'docker compose up -d'
+                }
+            }
+        }
 
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build finished successfully!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
 }
