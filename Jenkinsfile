@@ -33,15 +33,11 @@ pipeline {
 
         stage('MVN Clean') {
             steps {
-                sh 'mvn clean'
+                sh 'mvn clean install'
             }
         }
 
-        stage('MVN Compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
+
 
         stage('SonarQube Analysis') {
             steps {
