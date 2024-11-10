@@ -46,7 +46,7 @@ pipeline {
                     sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
             }
         }
-        stage('Hellooooo') {
+        stage('test Helloo') {
                     steps {
                         echo 'Hellooo World'
                     }
