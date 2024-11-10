@@ -46,6 +46,11 @@ pipeline {
                     sh './mvnw sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.ws.timeout=120'
             }
         }
+        stage('Hellooooo') {
+                    steps {
+                        echo 'Hellooo World'
+                    }
+                }
         stage('NEXUS') {
                     steps {
                         sh 'mvn deploy'
