@@ -1,9 +1,12 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:11
 
 WORKDIR /app
 
-COPY ./target/kaddem-0.0.1-SNAPSHOT.jar /app/app.jar
-
 EXPOSE 8089
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Download the JAR from the remote repository
+RUN curl -o kaddem.jar -L "http://192.168.33.10:8081/repository/maven-releases/tn/esprit/spring/kaddem/0.0.1/kaddem-0.0.1.jar"
+
+# Set the entry point to run the application
+ENTRYPOINT ["java", "-jar", "kaddem.jar"]
+
