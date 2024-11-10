@@ -50,7 +50,7 @@ pipeline {
                     steps {
                         echo 'Hellooo World'
                     }
-                }
+        }
         stage('NEXUS') {
                     steps {
                         sh 'mvn deploy'
