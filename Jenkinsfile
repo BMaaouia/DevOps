@@ -97,7 +97,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker compose pull'
-                    sh 'docker compose up -d'
+                    sh 'docker compose up -d --force-recreate --remove-orphans'
                 }
             }
         }
