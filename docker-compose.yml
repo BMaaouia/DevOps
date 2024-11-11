@@ -28,6 +28,7 @@ services:
       ports:
         - "9000:9000"
         - "9001:9001"
+        - "9092:9092"
       volumes:
         - 'SonarQube_data:/opt/sonarqube/data'
         - 'SonarQube_extensions:/opt/sonarqube/extensions'
