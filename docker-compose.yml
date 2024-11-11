@@ -39,9 +39,4 @@ services:
       - "8081:8081"
     volumes:
       - 'nexus-data:/nexus-data'
-volumes:
-  mysql_data:
-  SonarQube_data:
-  SonarQube_extensions:
-  SonarQube_logs:
-  nexus-data:
+
