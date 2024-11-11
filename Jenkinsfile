@@ -22,6 +22,7 @@ pipeline {
             steps {
                 git branch: 'AzizAllani',
                     url: 'https://github.com/BMaaouia/DevOps.git'
+                sh 'git pull origin AzizAllani'
             }
         }
 
